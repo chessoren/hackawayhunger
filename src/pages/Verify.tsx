@@ -15,6 +15,13 @@ export default function Verify() {
   const [scanning, setScanning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // A pasted or scanned link only changes the #fragment: re-verify on every change.
+  useEffect(() => {
+    const onHash = () => setFragment(window.location.hash.slice(1));
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
   useEffect(() => {
     if (!fragment) return setResult(null);
     trustedKeys().then(({ keys, devKey }) => {
@@ -24,7 +31,7 @@ export default function Verify() {
       if (r.status === 'authentic') {
         setSigner(r.signer);
         setDev(!!devKey && r.signer === devKey && !keys.includes(r.signer));
-      }
+      } else setDev(false);
     });
   }, [fragment]);
 
@@ -89,7 +96,7 @@ export default function Verify() {
             <thead><tr><th>Date</th><th>Organization</th><th>Mission</th><th>In–Out</th><th>Hours</th><th>Validated by</th></tr></thead>
             <tbody>
               {p.it.map((i, k) => (
-                <tr key={k}><td>{i.d}</td><td>{i.s}</td><td>{i.mi}</td><td>{i.in}–{i.out}</td><td>{i.h}</td><td>{i.c}{i.vk && <><br /><small>key {i.vk}</small></>}</td></tr>
+                <tr key={k}><td>{i.d}</td><td>{i.s}</td><td>{i.mi}</td><td>{i.in === "—" ? "—" : `${i.in}–${i.out}`}</td><td>{i.h}</td><td>{i.c}{i.vk && <><br /><small>key {i.vk}</small></>}</td></tr>
               ))}
             </tbody>
           </table>

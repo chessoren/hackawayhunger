@@ -1,0 +1,175 @@
+1
+00:00:00,000 --> 00:00:00,818
+This is Linda.
+
+2
+00:00:00,818 --> 00:00:05,667
+She's fifty-eight, she lives in Des Moines, and she cleans houses ten hours a week.
+
+3
+00:00:05,667 --> 00:00:07,361
+In October, a letter arrives.
+
+4
+00:00:07,361 --> 00:00:14,781
+Since the 2025 federal law, she must prove eighty hours a month of work, training or volunteering, or lose her food assistance.
+
+5
+00:00:14,781 --> 00:00:16,183
+She has twenty-one days.
+
+6
+00:00:16,183 --> 00:00:17,293
+And she has no car.
+
+7
+00:00:17,793 --> 00:00:18,766
+Here's the thing.
+
+8
+00:00:18,766 --> 00:00:21,685
+The law already counts volunteering, hour for hour.
+
+9
+00:00:21,685 --> 00:00:23,287
+What's missing is the proof.
+
+10
+00:00:23,287 --> 00:00:24,145
+So we built it.
+
+11
+00:00:24,145 --> 00:00:25,290
+This is Count Me In.
+
+12
+00:00:25,790 --> 00:00:27,196
+Linda just texts a number.
+
+13
+00:00:27,196 --> 00:00:28,277
+No app, no password.
+
+14
+00:00:28,277 --> 00:00:36,009
+She sends a photo of her letter, and in seconds she gets it back in three plain sentences: what it says, the deadline, and the one thing to do.
+
+15
+00:00:36,009 --> 00:00:37,414
+A reminder is already set.
+
+16
+00:00:37,914 --> 00:00:40,105
+Then, six simple questions, one at a time.
+
+17
+00:00:40,105 --> 00:00:41,774
+She can answer in her own words.
+
+18
+00:00:41,774 --> 00:00:44,434
+The AI turns them into facts, but it never decides.
+
+19
+00:00:44,434 --> 00:00:47,719
+A deterministic rules engine does, and it cites the regulation.
+
+20
+00:00:47,719 --> 00:00:49,180
+For Linda, the rule applies.
+
+21
+00:00:49,180 --> 00:00:51,370
+Her paid work gives her forty-three hours.
+
+22
+00:00:51,370 --> 00:00:52,830
+She needs thirty-seven more.
+
+23
+00:00:53,330 --> 00:01:01,133
+Count Me In offers three missions, never more, ranked by real access: a twelve-minute walk, a DART bus line, around her cleaning schedule.
+
+24
+00:01:01,133 --> 00:01:01,868
+She taps one.
+
+25
+00:01:01,868 --> 00:01:02,264
+Booked.
+
+26
+00:01:02,764 --> 00:01:07,738
+On the day, she scans the QR code at the door, or texts a four-digit code from any basic phone.
+
+27
+00:01:07,738 --> 00:01:10,827
+When she leaves, Pastor Dave confirms her hours in one tap.
+
+28
+00:01:10,827 --> 00:01:14,230
+That validation is signed and chained in a tamper-evident ledger.
+
+29
+00:01:14,230 --> 00:01:15,277
+And her gauge moves.
+
+30
+00:01:15,777 --> 00:01:18,475
+At the end of the month, she gets a signed attestation.
+
+31
+00:01:18,475 --> 00:01:20,535
+Nothing goes to the State without her yes.
+
+32
+00:01:20,535 --> 00:01:24,263
+A caseworker scans the QR code and sees, in one second, that it's authentic.
+
+33
+00:01:24,263 --> 00:01:26,617
+Change a single digit, and the signature breaks.
+
+34
+00:01:27,117 --> 00:01:28,510
+And for Iowa, a public map.
+
+35
+00:01:28,510 --> 00:01:34,236
+County by county, where eighty hours are reachable without a car, and where they are mathematically impossible.
+
+36
+00:01:34,236 --> 00:01:41,354
+With conservative assumptions, five hundred people supported means about three hundred thousand dollars of food aid preserved, every year.
+
+37
+00:01:41,854 --> 00:01:46,064
+It speaks eight languages, from Spanish to Swahili, by text or by voice.
+
+38
+00:01:46,064 --> 00:01:49,164
+One hour of volunteering serves three people at once.
+
+39
+00:01:49,164 --> 00:01:50,392
+Linda keeps her food.
+
+40
+00:01:50,392 --> 00:01:52,088
+The pantry gains a volunteer.
+
+41
+00:01:52,088 --> 00:01:53,667
+The State gets clean proof.
+
+42
+00:01:53,667 --> 00:01:54,895
+We don't create food.
+
+43
+00:01:54,895 --> 00:01:56,591
+We stop it from disappearing.
+
+44
+00:01:56,591 --> 00:01:57,292
+Count Me In.
