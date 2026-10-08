@@ -1,0 +1,146 @@
+# Count Me In — State rules file
+# ------------------------------------------------------------------
+# One file per state. Readable by a non-developer (a paralegal, a
+# navigator, a policy analyst). When the law changes, update THIS FILE,
+# not the code. Every answer the agent gives about eligibility cites the
+# `cite` field of the rule that fired.
+#
+# The AI never decides eligibility. It only turns what a person says
+# into the "facts" below. This deterministic evaluator decides, and a
+# human navigator settles anything marked `needs_review`.
+#
+# Condition syntax: <fact> <op> <value>, joined with "and" / "or".
+#   ops: ==  !=  >=  <=  >  <
+# ------------------------------------------------------------------
+
+state: IA
+name: Iowa
+agency: Iowa Department of Health and Human Services (Iowa HHS)
+version: "2026.10-hackathon"
+effective_date: "2026-02-01"
+last_reviewed: "2026-10-08"
+status: >-
+  Hackathon draft. Built from federal law and published state manuals;
+  must be validated with Iowa HHS before the pilot.
+
+sources:
+  - id: HR1-10102
+    title: "Public Law 119-21 (H.R. 1, 2025), Sec. 10102 — Modifications to SNAP work requirements for able-bodied adults"
+    url: "https://www.congress.gov/bill/119th-congress/house-bill/1/text"
+  - id: CFR-273.24
+    title: "7 CFR 273.24 — Time limit for able-bodied adults (work = paid, in-kind, unpaid or volunteer work)"
+    url: "https://www.ecfr.gov/current/title-7/subtitle-B/chapter-II/subchapter-C/part-273/subpart-D/section-273.24"
+  - id: FNS-OBBB-MEMO
+    title: "USDA FNS — OBBB ABAWD exemptions implementation memo"
+    url: "https://www.fns.usda.gov/snap/obbb-abawd-exemptions-implementation-memo"
+
+# What a person must show each month if no exemption applies.
+requirement:
+  hours_per_month: 80
+  plain: "80 hours a month of work, volunteering, or training — in any mix."
+  cite: CFR-273.24
+  time_limit_plain: "Without the 80 hours (or an exemption), SNAP stops after 3 months in a 36-month period."
+  countable_activities:
+    - id: paid_work
+      label: "Paid work (including gig work)"
+    - id: volunteer
+      label: "Volunteering with a public, faith-based or community organization"
+      verification: "Hours must be documented and verified (sign-in, coordinator confirmation)."
+    - id: training
+      label: "Job training or a work program (SNAP E&T)"
+    - id: esl
+      label: "English as a Second Language class (as part of a work program)"
+  not_countable:
+    - "Court-ordered community service"
+    - "Unpaid help for family members or friends"
+
+# Exemptions — evaluated top to bottom. First match wins.
+# outcome: exempt | likely_exempt (needs proof) | needs_review (human decides)
+exemptions:
+  - id: under_18
+    when: "age < 18"
+    outcome: exempt
+    cite: HR1-10102
+    plain: "You are under 18, so the 80-hour rule does not apply to you."
+
+  - id: age_65_plus
+    when: "age >= 65"
+    outcome: exempt
+    cite: HR1-10102
+    plain: "You are 65 or older, so the 80-hour rule does not apply to you."
+
+  - id: child_under_14
+    when: "child_under_14 == true"
+    outcome: exempt
+    cite: HR1-10102
+    plain: "You live with a child under 14 in your SNAP household, so the 80-hour rule does not apply to you."
+    proof: "Your caseworker already has your household list. Nothing extra to send in most cases."
+
+  - id: pregnant
+    when: "pregnant == true"
+    outcome: likely_exempt
+    cite: CFR-273.24
+    plain: "Pregnancy exempts you from the 80-hour rule."
+    proof: "A short note from a clinic or doctor confirming the pregnancy."
+
+  - id: unfit_for_work
+    when: "health_limits_work == true"
+    outcome: likely_exempt
+    cite: CFR-273.24
+    plain: "A physical or mental health condition that limits your ability to work can exempt you."
+    proof: "A statement from a medical provider, or proof you receive disability benefits."
+
+  - id: caregiver
+    when: "cares_for_incapacitated == true"
+    outcome: likely_exempt
+    cite: HR1-10102
+    plain: "Caring for someone who cannot care for themselves can exempt you."
+    proof: "A short statement describing who you care for and why they need you."
+
+  - id: tribal_member
+    when: "tribal_member == true"
+    outcome: likely_exempt
+    cite: FNS-OBBB-MEMO
+    plain: "Members of a federally recognized tribe (Indian, Urban Indian, California Indian) are exempt under the 2025 law."
+    proof: "Self-declaration is usually accepted; your caseworker will confirm."
+
+  - id: works_30_hours
+    when: "weekly_paid_hours >= 30"
+    outcome: exempt
+    cite: CFR-273.24
+    plain: "You already work 30 hours or more a week, which meets the requirement."
+
+  - id: unsure_health
+    when: "health_limits_work == unsure"
+    outcome: needs_review
+    cite: CFR-273.24
+    plain: "Your health situation might exempt you. A navigator will check this with you."
+
+# Exemptions that NO LONGER apply since the 2025 law — the agent explains
+# these gently, because many people still believe they are protected.
+removed_exemptions:
+  - id: veteran
+    plain: "Being a veteran no longer exempts you from the 80-hour rule since the 2025 federal law."
+    cite: HR1-10102
+  - id: homeless
+    plain: "Experiencing homelessness no longer exempts you from the 80-hour rule since the 2025 federal law."
+    cite: HR1-10102
+  - id: former_foster_youth
+    plain: "Having been in foster care at 18 no longer exempts you from the 80-hour rule since the 2025 federal law."
+    cite: HR1-10102
+  - id: parent_of_teen
+    plain: "Parents whose youngest child is 14 or older are now covered by the 80-hour rule."
+    cite: HR1-10102
+
+# Who the rule covers (used to explain "you are concerned").
+covered_population:
+  when: "age >= 18 and age <= 64"
+  plain: "Adults 18 to 64 who can work and do not live with a child under 14."
+  cite: HR1-10102
+
+# How hours are verified for the state — drives the attestation.
+verification:
+  level_1: "Person hands or uploads the signed attestation to Iowa HHS."
+  level_2: "With an explicit YES each time, Count Me In sends the attestation to Iowa HHS through a secure channel."
+  level_3: "Direct structured data exchange with Iowa HHS (partnership)."
+  consent_required_every_time: true

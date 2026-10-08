@@ -1,0 +1,596 @@
+[
+{
+"fips": "19001",
+"name": "Adair",
+"population": 7481,
+"fixedRouteTransit": false
+},
+{
+"fips": "19003",
+"name": "Adams",
+"population": 3911,
+"fixedRouteTransit": false
+},
+{
+"fips": "19005",
+"name": "Allamakee",
+"population": 14237,
+"fixedRouteTransit": false
+},
+{
+"fips": "19007",
+"name": "Appanoose",
+"population": 12700,
+"fixedRouteTransit": false
+},
+{
+"fips": "19009",
+"name": "Audubon",
+"population": 5910,
+"fixedRouteTransit": false
+},
+{
+"fips": "19011",
+"name": "Benton",
+"population": 25827,
+"fixedRouteTransit": false
+},
+{
+"fips": "19013",
+"name": "Black Hawk",
+"population": 131820,
+"fixedRouteTransit": true
+},
+{
+"fips": "19015",
+"name": "Boone",
+"population": 26195,
+"fixedRouteTransit": false
+},
+{
+"fips": "19017",
+"name": "Bremer",
+"population": 24479,
+"fixedRouteTransit": false
+},
+{
+"fips": "19019",
+"name": "Buchanan",
+"population": 20942,
+"fixedRouteTransit": false
+},
+{
+"fips": "19021",
+"name": "Buena Vista",
+"population": 20592,
+"fixedRouteTransit": false
+},
+{
+"fips": "19023",
+"name": "Butler",
+"population": 14986,
+"fixedRouteTransit": false
+},
+{
+"fips": "19025",
+"name": "Calhoun",
+"population": 9909,
+"fixedRouteTransit": false
+},
+{
+"fips": "19027",
+"name": "Carroll",
+"population": 20631,
+"fixedRouteTransit": false
+},
+{
+"fips": "19029",
+"name": "Cass",
+"population": 13723,
+"fixedRouteTransit": false
+},
+{
+"fips": "19031",
+"name": "Cedar",
+"population": 18416,
+"fixedRouteTransit": false
+},
+{
+"fips": "19033",
+"name": "Cerro Gordo",
+"population": 43788,
+"fixedRouteTransit": true
+},
+{
+"fips": "19035",
+"name": "Cherokee",
+"population": 11946,
+"fixedRouteTransit": false
+},
+{
+"fips": "19037",
+"name": "Chickasaw",
+"population": 12276,
+"fixedRouteTransit": false
+},
+{
+"fips": "19039",
+"name": "Clarke",
+"population": 9370,
+"fixedRouteTransit": false
+},
+{
+"fips": "19041",
+"name": "Clay",
+"population": 16599,
+"fixedRouteTransit": false
+},
+{
+"fips": "19043",
+"name": "Clayton",
+"population": 17835,
+"fixedRouteTransit": false
+},
+{
+"fips": "19045",
+"name": "Clinton",
+"population": 48717,
+"fixedRouteTransit": true
+},
+{
+"fips": "19047",
+"name": "Crawford",
+"population": 17309,
+"fixedRouteTransit": false
+},
+{
+"fips": "19049",
+"name": "Dallas",
+"population": 71967,
+"fixedRouteTransit": true
+},
+{
+"fips": "19051",
+"name": "Davis",
+"population": 8689,
+"fixedRouteTransit": false
+},
+{
+"fips": "19053",
+"name": "Decatur",
+"population": 8253,
+"fixedRouteTransit": false
+},
+{
+"fips": "19055",
+"name": "Delaware",
+"population": 17574,
+"fixedRouteTransit": false
+},
+{
+"fips": "19057",
+"name": "Des Moines",
+"population": 40340,
+"fixedRouteTransit": true
+},
+{
+"fips": "19059",
+"name": "Dickinson",
+"population": 16972,
+"fixedRouteTransit": false
+},
+{
+"fips": "19061",
+"name": "Dubuque",
+"population": 95097,
+"fixedRouteTransit": true
+},
+{
+"fips": "19063",
+"name": "Emmet",
+"population": 10120,
+"fixedRouteTransit": false
+},
+{
+"fips": "19065",
+"name": "Fayette",
+"population": 20793,
+"fixedRouteTransit": false
+},
+{
+"fips": "19067",
+"name": "Floyd",
+"population": 16056,
+"fixedRouteTransit": false
+},
+{
+"fips": "19069",
+"name": "Franklin",
+"population": 10554,
+"fixedRouteTransit": false
+},
+{
+"fips": "19071",
+"name": "Fremont",
+"population": 7147,
+"fixedRouteTransit": false
+},
+{
+"fips": "19073",
+"name": "Greene",
+"population": 9153,
+"fixedRouteTransit": false
+},
+{
+"fips": "19075",
+"name": "Grundy",
+"population": 12448,
+"fixedRouteTransit": false
+},
+{
+"fips": "19077",
+"name": "Guthrie",
+"population": 10777,
+"fixedRouteTransit": false
+},
+{
+"fips": "19079",
+"name": "Hamilton",
+"population": 15344,
+"fixedRouteTransit": false
+},
+{
+"fips": "19081",
+"name": "Hancock",
+"population": 11134,
+"fixedRouteTransit": false
+},
+{
+"fips": "19083",
+"name": "Hardin",
+"population": 17302,
+"fixedRouteTransit": false
+},
+{
+"fips": "19085",
+"name": "Harrison",
+"population": 14548,
+"fixedRouteTransit": false
+},
+{
+"fips": "19087",
+"name": "Henry",
+"population": 20236,
+"fixedRouteTransit": false
+},
+{
+"fips": "19089",
+"name": "Howard",
+"population": 9563,
+"fixedRouteTransit": false
+},
+{
+"fips": "19091",
+"name": "Humboldt",
+"population": 9729,
+"fixedRouteTransit": false
+},
+{
+"fips": "19093",
+"name": "Ida",
+"population": 7108,
+"fixedRouteTransit": false
+},
+{
+"fips": "19095",
+"name": "Iowa",
+"population": 16189,
+"fixedRouteTransit": false
+},
+{
+"fips": "19097",
+"name": "Jackson",
+"population": 19712,
+"fixedRouteTransit": false
+},
+{
+"fips": "19099",
+"name": "Jasper",
+"population": 36602,
+"fixedRouteTransit": false
+},
+{
+"fips": "19101",
+"name": "Jefferson",
+"population": 16867,
+"fixedRouteTransit": false
+},
+{
+"fips": "19103",
+"name": "Johnson",
+"population": 136317,
+"fixedRouteTransit": true
+},
+{
+"fips": "19105",
+"name": "Jones",
+"population": 20639,
+"fixedRouteTransit": false
+},
+{
+"fips": "19107",
+"name": "Keokuk",
+"population": 10374,
+"fixedRouteTransit": false
+},
+{
+"fips": "19109",
+"name": "Kossuth",
+"population": 15346,
+"fixedRouteTransit": false
+},
+{
+"fips": "19111",
+"name": "Lee",
+"population": 35617,
+"fixedRouteTransit": true
+},
+{
+"fips": "19113",
+"name": "Linn",
+"population": 215295,
+"fixedRouteTransit": true
+},
+{
+"fips": "19115",
+"name": "Louisa",
+"population": 11278,
+"fixedRouteTransit": false
+},
+{
+"fips": "19117",
+"name": "Lucas",
+"population": 8760,
+"fixedRouteTransit": false
+},
+{
+"fips": "19119",
+"name": "Lyon",
+"population": 11757,
+"fixedRouteTransit": false
+},
+{
+"fips": "19121",
+"name": "Madison",
+"population": 15654,
+"fixedRouteTransit": false
+},
+{
+"fips": "19123",
+"name": "Mahaska",
+"population": 22443,
+"fixedRouteTransit": false
+},
+{
+"fips": "19125",
+"name": "Marion",
+"population": 33419,
+"fixedRouteTransit": false
+},
+{
+"fips": "19127",
+"name": "Marshall",
+"population": 40857,
+"fixedRouteTransit": false
+},
+{
+"fips": "19129",
+"name": "Mills",
+"population": 14837,
+"fixedRouteTransit": false
+},
+{
+"fips": "19131",
+"name": "Mitchell",
+"population": 10725,
+"fixedRouteTransit": false
+},
+{
+"fips": "19133",
+"name": "Monona",
+"population": 9124,
+"fixedRouteTransit": false
+},
+{
+"fips": "19135",
+"name": "Monroe",
+"population": 8063,
+"fixedRouteTransit": false
+},
+{
+"fips": "19137",
+"name": "Montgomery",
+"population": 10566,
+"fixedRouteTransit": false
+},
+{
+"fips": "19139",
+"name": "Muscatine",
+"population": 42879,
+"fixedRouteTransit": true
+},
+{
+"fips": "19141",
+"name": "O'Brien",
+"population": 14172,
+"fixedRouteTransit": false
+},
+{
+"fips": "19143",
+"name": "Osceola",
+"population": 6193,
+"fixedRouteTransit": false
+},
+{
+"fips": "19145",
+"name": "Page",
+"population": 15713,
+"fixedRouteTransit": false
+},
+{
+"fips": "19147",
+"name": "Palo Alto",
+"population": 9275,
+"fixedRouteTransit": false
+},
+{
+"fips": "19149",
+"name": "Plymouth",
+"population": 24907,
+"fixedRouteTransit": false
+},
+{
+"fips": "19151",
+"name": "Pocahontas",
+"population": 7150,
+"fixedRouteTransit": false
+},
+{
+"fips": "19153",
+"name": "Polk",
+"population": 443710,
+"fixedRouteTransit": true
+},
+{
+"fips": "19155",
+"name": "Pottawattamie",
+"population": 92913,
+"fixedRouteTransit": true
+},
+{
+"fips": "19157",
+"name": "Poweshiek",
+"population": 18736,
+"fixedRouteTransit": false
+},
+{
+"fips": "19159",
+"name": "Ringgold",
+"population": 5096,
+"fixedRouteTransit": false
+},
+{
+"fips": "19161",
+"name": "Sac",
+"population": 10153,
+"fixedRouteTransit": false
+},
+{
+"fips": "19163",
+"name": "Scott",
+"population": 168799,
+"fixedRouteTransit": true
+},
+{
+"fips": "19165",
+"name": "Shelby",
+"population": 12069,
+"fixedRouteTransit": false
+},
+{
+"fips": "19167",
+"name": "Sioux",
+"population": 34268,
+"fixedRouteTransit": false
+},
+{
+"fips": "19169",
+"name": "Story",
+"population": 91140,
+"fixedRouteTransit": true
+},
+{
+"fips": "19171",
+"name": "Tama",
+"population": 17536,
+"fixedRouteTransit": false
+},
+{
+"fips": "19173",
+"name": "Taylor",
+"population": 6208,
+"fixedRouteTransit": false
+},
+{
+"fips": "19175",
+"name": "Union",
+"population": 12594,
+"fixedRouteTransit": false
+},
+{
+"fips": "19177",
+"name": "Van Buren",
+"population": 7449,
+"fixedRouteTransit": false
+},
+{
+"fips": "19179",
+"name": "Wapello",
+"population": 35366,
+"fixedRouteTransit": false
+},
+{
+"fips": "19181",
+"name": "Warren",
+"population": 46891,
+"fixedRouteTransit": true
+},
+{
+"fips": "19183",
+"name": "Washington",
+"population": 21914,
+"fixedRouteTransit": false
+},
+{
+"fips": "19185",
+"name": "Wayne",
+"population": 6344,
+"fixedRouteTransit": false
+},
+{
+"fips": "19187",
+"name": "Webster",
+"population": 37273,
+"fixedRouteTransit": true
+},
+{
+"fips": "19189",
+"name": "Winnebago",
+"population": 10600,
+"fixedRouteTransit": false
+},
+{
+"fips": "19191",
+"name": "Winneshiek",
+"population": 21061,
+"fixedRouteTransit": false
+},
+{
+"fips": "19193",
+"name": "Woodbury",
+"population": 102323,
+"fixedRouteTransit": true
+},
+{
+"fips": "19195",
+"name": "Worth",
+"population": 7519,
+"fixedRouteTransit": false
+},
+{
+"fips": "19197",
+"name": "Wright",
+"population": 12991,
+"fixedRouteTransit": false
+}
+]
