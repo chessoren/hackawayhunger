@@ -33,7 +33,7 @@ Count Me In turns volunteering into verified hours.
 - **Rules engine:** `rules/iowa.yaml`, one readable file per state with its sources. When the law changes, you edit the file, not the code.
 - **Signed ledger:** append-only and hash-chained, with Ed25519 signatures (TweetNaCl). It stores a salted pseudonym, never a phone number.
 - **Attestations:** signed server-side, built with **pdf-lib**, a QR code, and a verification page that also works by camera scan (**jsQR**).
-- **Map:** **Leaflet** with Iowa county GeoJSON.
+- **Map:** a custom SVG renderer of Iowa county GeoJSON — no third-party map tiles.
 - **Hosting:** serverless functions on **Netlify**.
 - **Quality:** **Vitest** (20 tests, including forgery and tampering cases) and a full **Playwright** end-to-end run.
 

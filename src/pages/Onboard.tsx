@@ -50,10 +50,11 @@ export default function Onboard() {
 
   return (
     <Layout>
-      <h1>Become a host site</h1>
-      <p className="lead">About 10 minutes. Zero cost, nothing to install. You choose which missions are open and you can decline any slot.</p>
+      <h1 className="display" style={{ fontSize: '3.2rem', margin: 0 }}>Become a host site</h1>
+      <div className="subtitle">About 10 minutes · zero cost · nothing to install</div>
+      <div className="row" style={{ margin: "10px 0 20px" }}><span className="pill lime"><span className="dot" />You choose the missions</span><span className="pill yellow">Decline any slot</span></div>
       <div className="steps">{STEPS.map((s, i) => <span key={s} className={i === step ? 'on' : ''}>{i + 1}. {s}</span>)}</div>
-      <div className="card">
+      <div className="panel">
         {step === 0 && (
           <div className="grid two">
             <div className="field"><label>Organization name</label><input value={site.name} onChange={(e) => setSite({ ...site, name: e.target.value })} placeholder="St. Mark's Food Pantry" /></div>
@@ -70,7 +71,7 @@ export default function Onboard() {
         {step === 1 && (
           <div className="grid three">
             {(Object.keys(MISSION_LABEL) as MissionType[]).map((m) => (
-              <label key={m} className="check card tight"><input type="checkbox" checked={missions.includes(m)} onChange={(e) => setMissions(e.target.checked ? [...missions, m] : missions.filter((x) => x !== m))} />{MISSION_LABEL[m]}</label>
+              <label key={m} className="check tile"><input type="checkbox" checked={missions.includes(m)} onChange={(e) => setMissions(e.target.checked ? [...missions, m] : missions.filter((x) => x !== m))} />{MISSION_LABEL[m]}</label>
             ))}
           </div>
         )}
@@ -89,13 +90,13 @@ export default function Onboard() {
                       <td><select value={s.mission} onChange={(e) => set({ mission: e.target.value as MissionType })}>{missions.map((m) => <option key={m} value={m}>{MISSION_LABEL[m]}</option>)}</select></td>
                       <td style={{ width: 90 }}><input type="number" min={1} value={s.capacity} onChange={(e) => set({ capacity: Number(e.target.value) })} /></td>
                       <td><input type="checkbox" checked={!!s.seated} onChange={(e) => set({ seated: e.target.checked, noLifting: e.target.checked })} aria-label="Seated work" /></td>
-                      <td><button className="btn ghost small" onClick={() => setSlots(slots.filter((_, j) => j !== i))}>Remove</button></td>
+                      <td><button className="btn flat small" onClick={() => setSlots(slots.filter((_, j) => j !== i))}>Remove</button></td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-            <button className="btn secondary small" style={{ marginTop: 10 }} onClick={() => setSlots([...slots, { id: 's' + (slots.length + 1), weekday: 6, start: '09:00', end: '12:00', mission: missions[0], capacity: 4 }])}>+ Add a recurring slot</button>
+            <button className="btn flat small" style={{ marginTop: 10 }} onClick={() => setSlots([...slots, { id: 's' + (slots.length + 1), weekday: 6, start: '09:00', end: '12:00', mission: missions[0], capacity: 4 }])}>+ Add a recurring slot</button>
           </div>
         )}
         {step === 3 && (
@@ -118,9 +119,9 @@ export default function Onboard() {
           </div>
         )}
         <div className="row" style={{ marginTop: 18 }}>
-          {step > 0 && <button className="btn secondary" onClick={() => setStep(step - 1)}>Back</button>}
+          {step > 0 && <button className="btn flat" onClick={() => setStep(step - 1)}>Back</button>}
           <span className="spacer" />
-          {step < 4 ? <button className="btn" disabled={!canNext} onClick={() => setStep(step + 1)}>Next</button> : <button className="btn orange big" disabled={saving} onClick={finish}>{saving ? 'Creating…' : 'Go live'}</button>}
+          {step < 4 ? <button className="btn blue" disabled={!canNext} onClick={() => setStep(step + 1)}>Next</button> : <button className="btn dark big" disabled={saving} onClick={finish}>{saving ? 'Creating…' : 'Go live'}</button>}
         </div>
       </div>
     </Layout>

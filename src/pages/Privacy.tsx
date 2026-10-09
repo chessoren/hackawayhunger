@@ -1,21 +1,31 @@
 import { Link } from 'react-router-dom';
+import { Lock, Fingerprint, CheckCircle2, Trash2, EyeOff, BarChart3, Ban, KeyRound } from 'lucide-react';
 import { Logo } from '../components/ui';
+
+const ITEMS = [
+  [Lock, 'Minimal data', 'First name, phone, language, hours. No SNAP case number.'],
+  [Fingerprint, 'Pseudonymous ledger', 'A salted hash, never the phone number.'],
+  [CheckCircle2, 'Consent every time', 'Nothing goes to the State without a YES, logged in the ledger.'],
+  [Trash2, 'Erase by SMS', 'Text DELETE and everything about you is erased.'],
+  [EyeOff, 'Host sites see little', 'A first name and a time slot — never your file.'],
+  [BarChart3, 'Aggregated public data', 'No dashboard cell shows fewer than 10 people.'],
+  [Ban, 'No resale, no ads', 'No commercial use of any data.'],
+  [KeyRound, 'Your AI key', 'Stays in your browser and goes only to the provider you chose.'],
+] as const;
 
 export default function Privacy() {
   return (
-    <main className="page" style={{ maxWidth: 760 }}>
-      <Link to="/" className="brand"><Logo /> Count Me In</Link>
-      <h1 style={{ marginTop: 16 }}>Privacy, by design</h1>
-      <ul style={{ fontSize: '1.05rem', lineHeight: 1.7 }}>
-        <li><strong>Minimal data:</strong> first name, phone, language, hours. No SNAP case number stored in clear.</li>
-        <li><strong>Pseudonymous ledger:</strong> the hours ledger stores a salted hash, never the phone number.</li>
-        <li><strong>Explicit consent, every time:</strong> nothing is sent to the State without a “YES” from the person, logged in the ledger.</li>
-        <li><strong>Right to erasure by SMS:</strong> text DELETE and everything about you is erased.</li>
-        <li><strong>Host sites see little:</strong> a first name and a time slot — never why someone volunteers, never their file.</li>
-        <li><strong>Public data is aggregated:</strong> no dashboard cell shows fewer than 10 people.</li>
-        <li><strong>No resale, no ads, no commercial use.</strong></li>
-        <li><strong>AI keys:</strong> in this hackathon build, the AI key you enter stays in your browser and goes only to the provider you chose.</li>
-      </ul>
+    <main style={{ maxWidth: 980, margin: '0 auto', padding: '34px 20px 60px' }}>
+      <Link to="/" className="row" style={{ textDecoration: 'none', fontWeight: 800 }}><Logo size={40} /> Count Me In</Link>
+      <h1 className="display hero-title" style={{ marginTop: 26 }}>Privacy, by design</h1>
+      <div className="grid two" style={{ marginTop: 20 }}>
+        {ITEMS.map(([Icon, t, d], i) => (
+          <div key={t} className="panel tight row" style={{ flexWrap: 'nowrap' }}>
+            <span className={`ibtn ${['blue', 'yellow', 'lime'][i % 3]}`}><Icon size={19} /></span>
+            <div><b>{t}</b><div className="muted">{d}</div></div>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }

@@ -39,7 +39,6 @@ export default defineConfig({
         manualChunks: {
           ai: ['@anthropic-ai/sdk', 'openai'],
           pdf: ['pdf-lib', 'qrcode', 'jsqr'],
-          map: ['leaflet'],
         },
       },
     },

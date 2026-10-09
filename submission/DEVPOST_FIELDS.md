@@ -33,7 +33,7 @@ Paste `ABOUT_THE_PROJECT.md` (Devpost's "About the project" field accepts Markdo
 9. vercel
 10. twilio
 11. web-speech-api
-12. leaflet
+12. lucide
 13. geojson
 14. pdf-lib
 15. qrcode

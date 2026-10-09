@@ -6,6 +6,8 @@ import { Shift, hoursBetween, shifts, verifyChain } from '../core/ledger';
 import { MISSION_LABEL } from '../data/sites';
 import { fingerprint } from '../core/crypto';
 import { DEFAULT_ASSUMPTIONS, usd } from '../core/impact';
+import { Check, PenLine, UserX, Clock, Users, DollarSign, AlertCircle, Download, Printer, ShieldCheck, ShieldAlert, ListChecks, BarChart3, QrCode, ScrollText, UserPlus } from 'lucide-react';
+import { Stat } from './ui';
 
 const t = (iso?: string | unknown) => (iso ? new Date(String(iso)).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '—');
 const sameDay = (a: Date, b: Date) => a.toDateString() === b.toDateString();
@@ -45,68 +47,69 @@ export default function CoordinatorPanel({ siteId: initial, compact }: { siteId?
   }
 
   return (
-    <div className="card" style={compact ? { padding: 16 } : undefined}>
-      <div className="row" style={{ marginBottom: 12 }}>
-        <div>
-          <div className="muted" style={{ fontSize: '0.85rem', fontWeight: 700 }}>COORDINATOR · {site.coordinator}</div>
-          <select aria-label="Host site" value={site.id} onChange={(e) => setSiteId(e.target.value)} style={{ fontWeight: 700, minHeight: 40, padding: '6px 10px' }}>
+    <div className="panel" style={compact ? { padding: 22 } : undefined}>
+      <div className="row" style={{ marginBottom: 16, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, minWidth: 240 }}>
+          <div className="label">Coordinator · {site.coordinator}</div>
+          <select aria-label="Host site" value={site.id} onChange={(e) => setSiteId(e.target.value)} style={{ fontWeight: 800, fontSize: '1.15rem', marginTop: 4, background: 'var(--surface-2)' }}>
             {db.sites.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </select>
         </div>
-        <span className="spacer" />
-        <div className="row" role="tablist">
-          {(['today', 'report', 'poster', 'audit'] as const).map((k) => (
-            <button key={k} role="tab" aria-selected={tab === k} className={`btn small ${tab === k ? '' : 'secondary'}`} onClick={() => setTab(k)}>
-              {{ today: 'Today', report: 'Monthly report', poster: 'QR poster', audit: 'Audit log' }[k]}
-            </button>
+        <div className="row" role="tablist" style={{ background: 'var(--surface-2)', padding: 5, borderRadius: 16, gap: 4 }}>
+          {([['today', 'Today', ListChecks], ['report', 'Report', BarChart3], ['poster', 'QR poster', QrCode], ['audit', 'Audit', ScrollText]] as const).map(([k, label, Icon]) => (
+            <button key={k} role="tab" aria-selected={tab === k} className={`btn small ${tab === k ? 'blue' : 'ghost'}`} onClick={() => setTab(k)}><Icon size={15} />{label}</button>
           ))}
         </div>
       </div>
 
       {tab === 'today' && (
         <div>
-          <h3>{clock.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} — who's coming</h3>
-          {!today.length && <p className="muted">No volunteers booked today. {upcoming.length ? `${upcoming.length} upcoming booking(s) this month.` : ''}</p>}
+          <div className="row" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: 0 }}>{clock.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</h3>
+            <span className="pill yellow">{today.length} expected</span>
+          </div>
+          {!today.length && <div className="tile muted">No volunteers booked today. {upcoming.length ? `${upcoming.length} upcoming booking(s) this month.` : ''}</div>}
           {today.map((s) => {
             const slot = site.slots.find((x) => x.id === s.slotId);
             const late = s.status === 'booked' && clock.getTime() > new Date(s.occurrence).getTime() + 20 * 60000;
             return (
               <div key={s.person + s.occurrence} className={`vol-row ${s.status}`}>
+                <span className="avatar">{firstName(s).charAt(0)}</span>
                 <div>
                   <div className="name">{firstName(s)}</div>
-                  <div className="muted">{slot && `${MISSION_LABEL[slot.mission]} · ${slot.start}–${slot.end}`}</div>
-                  <div style={{ marginTop: 4 }}>
-                    {s.status === 'booked' && <span className={`pill ${late ? 'red' : 'gray'}`}>{late ? 'Late — no check-in' : 'Expected'}</span>}
-                    {s.status === 'arrived' && <span className="pill orange">Arrived {t(s.checkIn?.data.at)}</span>}
-                    {s.status === 'left' && <span className="pill orange">{t(s.checkIn?.data.at)} → {t(s.checkOut?.data.at)} · to confirm</span>}
-                    {s.status === 'validated' && <span className="pill">✓ {s.hours} h confirmed</span>}
-                    {s.status === 'no_show' && <span className="pill red">No-show — waitlist notified</span>}
+                  <div className="muted" style={{ fontSize: '0.88rem' }}>{slot && `${MISSION_LABEL[slot.mission]} · ${slot.start}–${slot.end}`}</div>
+                  <div style={{ marginTop: 6 }}>
+                    {s.status === 'booked' && <span className={`pill ${late ? 'coral' : ''}`}>{late ? 'Late — no check-in' : 'Expected'}</span>}
+                    {s.status === 'arrived' && <span className="pill blue">Arrived {t(s.checkIn?.data.at)}</span>}
+                    {s.status === 'left' && <span className="pill yellow">{t(s.checkIn?.data.at)} → {t(s.checkOut?.data.at)} · to confirm</span>}
+                    {s.status === 'validated' && <span className="pill lime"><Check size={13} />{s.hours} h confirmed</span>}
+                    {s.status === 'no_show' && <span className="pill coral">No-show · waitlist notified</span>}
                   </div>
                 </div>
                 <div className="row">
                   {(s.status === 'left' || s.status === 'arrived') && (
                     <>
-                      <button className="btn big" onClick={() => validate(s)} aria-label={`Confirm hours for ${firstName(s)}`}>✓ Confirm</button>
-                      <button className="btn secondary small" onClick={() => { const h = prompt('Correct hours (e.g. 3.5):'); if (h) validate(s, Number(h)); }}>Correct</button>
+                      <button className="btn lime big" onClick={() => validate(s)} aria-label={`Confirm hours for ${firstName(s)}`}><Check size={20} />Confirm</button>
+                      <button className="ibtn" aria-label="Correct hours" title="Correct hours" onClick={() => { const h = prompt('Correct hours (e.g. 3.5):'); if (h) validate(s, Number(h)); }}><PenLine size={18} /></button>
                     </>
                   )}
-                  {late && <button className="btn secondary small" onClick={() => noShow(s)}>Mark no-show</button>}
+                  {late && <button className="btn flat small" onClick={() => noShow(s)}><UserX size={15} />No-show</button>}
                 </div>
               </div>
             );
           })}
-          <p className="muted" style={{ marginTop: 12, fontSize: '0.85rem' }}>
-            You only see a first name and a slot — never why someone volunteers, never their SNAP file. Validation is signed with this site's key ({fingerprint(db.siteKeys[site.id]?.publicKey ?? '')}).
+          <p className="muted" style={{ marginTop: 14, fontSize: '0.84rem' }}>
+            You only see a first name and a slot — never why someone volunteers, never their SNAP file. Confirmations are signed with this site's key ({fingerprint(db.siteKeys[site.id]?.publicKey ?? '')}).
           </p>
+          {!compact && (
+            <button className="btn flat small" onClick={() => update((d) => { d.tickets.push({ id: Math.random().toString(36).slice(2), phone: '', name: site.coordinator, reason: `Need volunteers at ${site.name}`, at: now(d).toISOString() }); })}><UserPlus size={15} />Request more volunteers</button>
+          )}
         </div>
       )}
 
       {tab === 'report' && <Report siteId={site.id} />}
       {tab === 'poster' && <Poster code={site.code} name={site.name} />}
       {tab === 'audit' && <Audit siteId={site.id} />}
-      {!compact && tab === 'today' && (
-        <button className="btn ghost small" onClick={() => update((d) => { d.tickets.push({ id: Math.random().toString(36).slice(2), phone: '', name: site.coordinator, reason: `Need volunteers at ${site.name}`, at: now(d).toISOString() }); })}>Request more volunteers</button>
-      )}
     </div>
   );
 }
@@ -130,14 +133,14 @@ function Report({ siteId }: { siteId: string }) {
   return (
     <div>
       <h3>{site.name} — {clock.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h3>
-      <div className="grid four" style={{ margin: '12px 0' }}>
-        <div><div className="stat">{hours}</div><div className="stat-label">volunteer hours received</div></div>
-        <div><div className="stat">{people}</div><div className="stat-label">volunteers</div></div>
-        <div><div className="stat">{usd(hours * DEFAULT_ASSUMPTIONS.volunteerHourValue)}</div><div className="stat-label">economic value of time given</div></div>
-        <div><div className="stat orange">{noShows}</div><div className="stat-label">no-shows</div></div>
+      <div className="grid four" style={{ margin: '14px 0' }}>
+        <div className="tile"><Stat value={hours} label="Hours received" icon={Clock} /></div>
+        <div className="tile"><Stat value={people} label="Volunteers" icon={Users} /></div>
+        <div className="tile"><Stat value={usd(hours * DEFAULT_ASSUMPTIONS.volunteerHourValue)} label="Value of time" icon={DollarSign} /></div>
+        <div className="tile"><Stat value={noShows} label="No-shows" icon={AlertCircle} /></div>
       </div>
-      <p className="muted">Ready to attach to a grant application. Value uses the Independent Sector hourly value of volunteer time (${DEFAULT_ASSUMPTIONS.volunteerHourValue}).</p>
-      <div className="row"><button className="btn secondary small" onClick={csv}>Download CSV</button><button className="btn secondary small" onClick={() => window.print()}>Print report</button></div>
+      <p className="muted" style={{ fontSize: '0.86rem' }}>Ready to attach to a grant application. Value uses the Independent Sector hourly value of volunteer time (${DEFAULT_ASSUMPTIONS.volunteerHourValue}).</p>
+      <div className="row"><button className="btn flat small" onClick={csv}><Download size={15} />CSV</button><button className="btn flat small" onClick={() => window.print()}><Printer size={15} />Print</button></div>
     </div>
   );
 }
@@ -145,19 +148,19 @@ function Report({ siteId }: { siteId: string }) {
 function Poster({ code, name }: { code: string; name: string }) {
   const [src, setSrc] = useState('');
   const url = `${window.location.origin}/c/${code}`;
-  useEffect(() => { QRCode.toDataURL(url, { width: 520, margin: 1, color: { dark: '#0d5a32' } }).then(setSrc); }, [url]);
+  useEffect(() => { QRCode.toDataURL(url, { width: 520, margin: 1, color: { dark: '#0c0c0d' } }).then(setSrc); }, [url]);
   return (
     <div>
       <div className="poster">
-        <div className="muted" style={{ fontWeight: 700 }}>VOLUNTEERS — CHECK IN HERE</div>
-        <h2>Count Me In</h2>
-        <p style={{ fontSize: '1.1rem' }}>Scan when you <strong>arrive</strong> and when you <strong>leave</strong>.<br />Your hours are confirmed by {name}.</p>
-        {src && <img src={src} alt={`QR code to check in at ${name}`} style={{ width: 260, height: 260 }} />}
-        <p>No smartphone? Text this code to <strong>(515) 800-8080</strong>:</p>
+        <span className="pill yellow">Volunteers · check in here</span>
+        <h2 style={{ marginTop: 14, fontSize: '2.4rem' }}>Count Me In</h2>
+        <p>Scan when you <b>arrive</b> and when you <b>leave</b>.<br />Hours confirmed by {name}.</p>
+        {src && <img src={src} alt={`QR code to check in at ${name}`} style={{ width: 240, height: 240, borderRadius: 20 }} />}
+        <p style={{ marginTop: 12 }}>No smartphone? Text this code to <b>(515) 800-8080</b></p>
         <div className="code-big">{code}</div>
         <p className="muted">Escanee · Scannez · Changanua · امسح</p>
       </div>
-      <div className="row no-print" style={{ justifyContent: 'center', marginTop: 12 }}><button className="btn" onClick={() => window.print()}>Print poster</button></div>
+      <div className="row no-print" style={{ justifyContent: 'center', marginTop: 14 }}><button className="btn dark" onClick={() => window.print()}><Printer size={17} />Print poster</button></div>
     </div>
   );
 }
@@ -168,12 +171,12 @@ function Audit({ siteId }: { siteId: string }) {
   const entries = db.ledger.filter((e) => e.siteId === siteId).slice(-25).reverse();
   return (
     <div>
-      <p>{check.ok ? <span className="pill">✓ Ledger intact — {db.ledger.length} entries, every link and signature verified</span> : <span className="pill red">⚠ Ledger broken at #{check.brokenAt}: {check.reason}</span>}</p>
+      <p>{check.ok ? <span className="pill lime"><ShieldCheck size={14} />Ledger intact — {db.ledger.length} entries, every link and signature verified</span> : <span className="pill coral"><ShieldAlert size={14} />Ledger broken at #{check.brokenAt}: {check.reason}</span>}</p>
       <table>
         <thead><tr><th>#</th><th>Time</th><th>Event</th><th>Person (pseudonym)</th><th>Hash</th><th>Signed</th></tr></thead>
         <tbody>
           {entries.map((e) => (
-            <tr key={e.seq}><td>{e.seq}</td><td>{new Date(e.ts).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</td><td>{e.type.replace('_', ' ')}</td><td><code>{e.person.slice(0, 10)}</code></td><td><code>{e.hash.slice(0, 12)}…</code></td><td>{e.sig ? '✓ coordinator' : '—'}</td></tr>
+            <tr key={e.seq}><td>{e.seq}</td><td>{new Date(e.ts).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</td><td><span className="pill">{e.type.replace('_', ' ')}</span></td><td><code>{e.person.slice(0, 10)}</code></td><td><code>{e.hash.slice(0, 12)}…</code></td><td>{e.sig ? <span className="pill lime">coordinator</span> : '—'}</td></tr>
           ))}
         </tbody>
       </table>

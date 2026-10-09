@@ -3,8 +3,10 @@ import QRCode from 'qrcode';
 import { AttestationPayload } from '../core/attestation';
 import { fingerprint } from '../core/crypto';
 
-const GREEN = rgb(0.07, 0.42, 0.25);
-const ORANGE = rgb(0.95, 0.5, 0.13);
+const GREEN = rgb(0.047, 0.047, 0.051);
+const BLUE = rgb(0.557, 0.804, 0.965);
+const LIME = rgb(0.835, 0.941, 0.549);
+const ORANGE = rgb(0.957, 0.651, 0.165);
 const INK = rgb(0.1, 0.12, 0.12);
 const MUTED = rgb(0.4, 0.43, 0.43);
 
@@ -39,8 +41,8 @@ export async function attestationPdf(p: AttestationPayload, verifyLink: string, 
 
   // Totals
   y = 640;
-  page.drawRectangle({ x: 40, y: y - 40, width: 380, height: 50, color: rgb(0.95, 0.97, 0.95) });
-  text(`${p.tot.all} hours`, 52, y - 22, 22, bold, p.tot.all >= p.goal ? GREEN : ORANGE);
+  page.drawRectangle({ x: 40, y: y - 40, width: 380, height: 50, color: p.tot.all >= p.goal ? LIME : rgb(0.957, 0.957, 0.949) });
+  text(`${p.tot.all} hours`, 52, y - 22, 22, bold, INK);
   text(`of ${p.goal} required`, 160, y - 20, 11, font, MUTED);
   text(`Volunteering ${p.tot.volunteer} h  |  Training ${p.tot.training} h  |  Paid work (declared) ${p.tot.paid_declared} h`, 52, y - 34, 9, font, INK);
 
@@ -48,8 +50,8 @@ export async function attestationPdf(p: AttestationPayload, verifyLink: string, 
   y = 575;
   const cols = [40, 100, 238, 360, 400, 440, 470];
   const head = ['Date', 'Organization', 'Mission', 'In', 'Out', 'Hrs', 'Validated by'];
-  page.drawRectangle({ x: 36, y: y - 5, width: W - 72, height: 18, color: GREEN });
-  head.forEach((h, i) => text(h, cols[i], y, 9, bold, rgb(1, 1, 1)));
+  page.drawRectangle({ x: 36, y: y - 5, width: W - 72, height: 18, color: BLUE });
+  head.forEach((h, i) => text(h, cols[i], y, 9, bold, INK));
   y -= 20;
   for (const it of p.it) {
     if (y < 150) break;

@@ -3,6 +3,7 @@ import { useDB } from '../app/store';
 import { send } from '../app/runtime';
 import { ChatMsg } from '../app/store';
 import { Gauge, Logo } from './ui';
+import { Phone as PhoneIcon, Camera, Mic, ArrowUp, FileText, MapPin, ShieldCheck, Bell, BatteryCharging } from 'lucide-react';
 import { langByCode } from '../core/i18n';
 
 /** Resize a photo on-device before sending (privacy + bandwidth). */
@@ -32,10 +33,26 @@ function speak(text: string, lang: string) {
 function Card({ m }: { m: ChatMsg }) {
   const c = m.card;
   if (!c) return null;
-  if (c.kind === 'gauge') return <div className="mini-card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}><Gauge done={c.done} goal={c.goal} size={92} /><div><strong>{Math.max(0, c.goal - c.done)} h to go</strong>{c.daysLeft ? <div className="muted">{c.daysLeft} days left</div> : null}</div></div>;
-  if (c.kind === 'booking') return <div className="mini-card">📍 <strong>{c.booking.siteName}</strong><br />{c.booking.address}<br /><a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.booking.address)}&travelmode=transit`} target="_blank" rel="noreferrer">Directions</a> · code <strong>{c.booking.code}</strong></div>;
-  if (c.kind === 'attestation') return <div className="mini-card">📄 <a href={c.url} target="_blank" rel="noreferrer"><strong>Open my signed attestation</strong></a></div>;
-  if (c.kind === 'decision' && c.decision.cite) return <div className="mini-card"><span className="pill gray">Rule cited</span><br /><a href={c.decision.cite.url} target="_blank" rel="noreferrer">{c.decision.cite.title}</a><br /><small>Rules file {c.decision.rulesVersion}</small></div>;
+  if (c.kind === 'gauge') {
+    const pct = Math.round((Math.min(c.done, c.goal) / c.goal) * 100);
+    return (
+      <div className="mini-card" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <Gauge done={c.done} goal={c.goal} size={86} />
+        <div>
+          <div className="row" style={{ gap: 6 }}><span className={`pill ${pct >= 100 ? 'lime' : 'yellow'}`} style={{ fontSize: '1rem', fontWeight: 800 }}>{pct}%</span><span className="ibtn sm" style={{ background: 'var(--surface-2)', width: 32, height: 32, minWidth: 32 }}><BatteryCharging size={16} /></span></div>
+          <div style={{ marginTop: 6 }}><b>{Math.max(0, c.goal - c.done)} h to go</b>{c.daysLeft ? <div className="muted">{c.daysLeft} days left</div> : null}</div>
+        </div>
+      </div>
+    );
+  }
+  if (c.kind === 'booking') return (
+    <div className="mini-card">
+      <div className="row" style={{ gap: 8, flexWrap: 'nowrap' }}><span className="ibtn sm yellow"><MapPin size={16} /></span><div><b>{c.booking.siteName}</b><div className="muted" style={{ fontSize: '0.8rem' }}>{c.booking.address}</div></div></div>
+      <div className="row" style={{ gap: 6, marginTop: 8 }}><span className="pill lime"><span className="dot" />Booked</span><span className="pill yellow">Code {c.booking.code}</span><a className="pill white" href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(c.booking.address)}`} target="_blank" rel="noreferrer">Directions</a></div>
+    </div>
+  );
+  if (c.kind === 'attestation') return <a className="mini-card row" style={{ gap: 8, textDecoration: 'none', flexWrap: 'nowrap' }} href={c.url} target="_blank" rel="noreferrer"><span className="ibtn sm lime"><FileText size={16} /></span><b>Open my signed attestation</b><span style={{ marginLeft: 6 }}>&gt;&gt;</span></a>;
+  if (c.kind === 'decision' && c.decision.cite) return <div className="mini-card"><span className="pill blue"><ShieldCheck size={13} />Rule cited</span><div style={{ marginTop: 6 }}><a href={c.decision.cite.url} target="_blank" rel="noreferrer">{c.decision.cite.title}</a></div><small>Rules file {c.decision.rulesVersion}</small></div>;
   return null;
 }
 
@@ -98,22 +115,24 @@ export default function PhoneSim({ phone, height }: { phone: string; height?: nu
   }
 
   const last = thread[thread.length - 1];
+  const unread = Math.min(9, thread.filter((m) => m.from === 'agent' && m.card).length);
 
   return (
     <div className="phone" style={height ? { height } : undefined} aria-label="Simulated phone">
       <div className="phone-screen">
         <div className="phone-head">
-          <div className="avatar"><Logo size={30} /></div>
+          <Logo size={44} />
           <div>
             <div className="title">Count Me In</div>
-            <div className="sub">(515) 800-8080 · SMS · {langByCode(lang).native}</div>
+            <div className="sub">(515) 800-8080 · {langByCode(lang).native}</div>
           </div>
           <span className="spacer" />
-          <button className={`icon-btn ${voice ? 'send' : ''}`} title={voice ? 'Voice call mode on' : 'Voice call mode: read replies aloud'} aria-pressed={voice} onClick={() => { setVoice(!voice); if (voice) speechSynthesis?.cancel(); }}>📞</button>
+          <button className={`ibtn raised ${voice ? 'blue' : ''}`} title={voice ? 'Voice call mode on' : 'Voice call mode: read replies aloud'} aria-label="Voice call mode" aria-pressed={voice} onClick={() => { setVoice(!voice); if (voice) speechSynthesis?.cancel(); }}><PhoneIcon size={19} /></button>
+          <span className="ibtn raised" aria-hidden="true"><Bell size={19} />{unread > 0 && <span className="badge">{unread}</span>}</span>
         </div>
         <div className="thread" aria-live="polite" ref={threadRef}>
           {!thread.length && (
-            <div className="bubble system">Send “Hi”, “Bonjour”, “Hola” or “Jambo” to start — or tap the 📞 for a voice call.</div>
+            <div className="bubble system">Send “Hi”, “Hola”, “Bonjour” or “Jambo” to start — or turn on voice mode.</div>
           )}
           {thread.map((m) => (
             <div key={m.id} style={{ display: 'contents' }}>
@@ -133,13 +152,16 @@ export default function PhoneSim({ phone, height }: { phone: string; height?: nu
         </div>
         <form className="composer" onSubmit={(e) => { e.preventDefault(); submit(text); }}>
           <input ref={fileRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => onFile(e.target.files?.[0])} />
-          <button type="button" className="icon-btn" title="Send a photo of a letter" onClick={() => fileRef.current?.click()}>📷</button>
+          <button type="button" className="ibtn sm raised" title="Send a photo of a letter" aria-label="Send a photo" onClick={() => fileRef.current?.click()}><Camera size={18} /></button>
           <input aria-label="Message" placeholder="Text message" value={text} onChange={(e) => setText(e.target.value)} />
-          <button type="button" className={`icon-btn ${listening ? 'live' : ''}`} title="Speak" onClick={listen}>🎙️</button>
-          <button className="icon-btn send" title="Send" disabled={busy}>➤</button>
+          <button type="button" className={`ibtn sm raised ${listening ? 'live' : ''}`} title="Speak" aria-label="Speak" onClick={listen}><Mic size={18} /></button>
+          <button className="ibtn sm blue send" title="Send" aria-label="Send" disabled={busy}><ArrowUp size={19} /></button>
         </form>
-        <div style={{ padding: '0 10px 10px', background: '#f8f9f8' }}>
-          <button className="btn ghost small" style={{ width: '100%' }} onClick={sampleLetter} disabled={busy}>📄 Send the sample State letter (demo)</button>
+        <div style={{ padding: '0 12px 14px' }}>
+          <button className="unlock" style={{ minHeight: 54, fontSize: '0.92rem', padding: '5px 16px 5px 5px' }} onClick={sampleLetter} disabled={busy}>
+            <span className="knob" style={{ width: 44, height: 44, borderRadius: 13 }}><FileText size={19} /></span>
+            <span className="txt">Send the sample State letter</span><span className="chev">&gt;&gt;</span>
+          </button>
         </div>
       </div>
     </div>

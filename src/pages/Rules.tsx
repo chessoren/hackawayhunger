@@ -13,15 +13,16 @@ export default function Rules() {
   );
   return (
     <Layout>
-      <h1>The Iowa rules file</h1>
-      <p className="lead">One file per state, readable by a non-developer. When the law changes, we update this file — not the code. That is what makes Count Me In replicable in all 50 states.</p>
+      <h1 className="display" style={{ fontSize: '3.2rem', margin: 0 }}>Iowa rules file</h1>
+      <div className="subtitle">One YAML per state · readable by a paralegal · cited</div>
+      <div className="row" style={{ margin: '10px 0 22px' }}><span className="pill lime"><span className="dot" />Deterministic</span><span className="pill yellow">AI never decides</span><span className="pill blue">50-state ready</span></div>
       <div className="grid two">
-        <div className="card">
+        <div className="panel">
           <h3>Try the deterministic engine</h3>
           <p className="muted">The AI only turns words into these facts. This engine decides, and cites the rule.</p>
           <table>
             <tbody>
-              <tr><td>Age</td><td><input type="number" value={f.age ?? ''} onChange={(e) => setF({ ...f, age: e.target.value ? Number(e.target.value) : undefined })} /></td></tr>
+              <tr><td className="muted">Age</td><td><input type="number" value={f.age ?? ''} onChange={(e) => setF({ ...f, age: e.target.value ? Number(e.target.value) : undefined })} /></td></tr>
               <tr><td>Child under 14 in SNAP household</td><td>{yn('child_under_14')}</td></tr>
               <tr><td>Pregnant</td><td>{yn('pregnant')}</td></tr>
               <tr><td>Health condition limiting work</td><td>{yn('health_limits_work')}</td></tr>
@@ -30,8 +31,8 @@ export default function Rules() {
               <tr><td>Veteran (no longer exempt)</td><td>{yn('veteran')}</td></tr>
             </tbody>
           </table>
-          <div className="card tight" style={{ marginTop: 14, background: 'var(--green-50)' }}>
-            <span className={`pill ${d.outcome === 'subject' ? 'orange' : d.outcome === 'needs_review' ? 'red' : ''}`}>{d.outcome.replace('_', ' ')}</span>
+          <div className="tile" style={{ marginTop: 14 }}>
+            <span className={`pill ${d.outcome === 'subject' ? 'yellow' : d.outcome === 'needs_review' ? 'coral' : 'lime'}`}>{d.outcome.replace('_', ' ')}</span>
             <p style={{ marginTop: 8 }}>{d.missing.length ? `Needs: ${d.missing.join(', ')}` : d.plain}</p>
             {d.proof && <p className="muted">Proof: {d.proof}</p>}
             {d.cite && <a href={d.cite.url} target="_blank" rel="noreferrer">{d.cite.title}</a>}
