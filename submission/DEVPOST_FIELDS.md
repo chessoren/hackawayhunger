@@ -19,7 +19,7 @@ Upload `count-me-in-demo.mp4` (2:00, voice-over + burned-in subtitles; `subs.srt
 Paste `ABOUT_THE_PROJECT.md` (Devpost's "About the project" field accepts Markdown).
 
 ## Image gallery / thumbnail (3:2)
-`slides/slide-01.png` … `slides/slide-15.png` are 1800×1200 (3:2). Use `slide-01.png` as the thumbnail.
+`gallery/01-title.png` … `gallery/15-whats-next.png` are 1800×1200 (3:2), numbered in order. Upload them one at a time, in order (Devpost orders images by upload completion). Use `01-title.png` as the thumbnail.
 
 ## Built with — 25 tags
 1. typescript
